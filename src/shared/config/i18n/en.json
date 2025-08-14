@@ -1,0 +1,11 @@
+{
+  "navigation": {
+    "home": "Home",
+    "blog": "Blog",
+    "projects": "Projects"
+  },
+  "homepage": {
+    "title": "Hi, I'm Ruslan!",
+    "subtitle": "I am a frontend developer. This is my personal website where I share my thoughts, projects, and experience."
+  }
+}
