@@ -1,6 +1,5 @@
 <svg viewBox="0 0 220 70" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="rslcode logo">
   <defs>
-    <!-- Градиент для неона -->
     <linearGradient id="rslGrad" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#38bdf8"/>
       <stop offset="100%" stop-color="#22d3ee"/>
@@ -8,7 +7,6 @@
       <animate attributeName="x2" values="100%;95%;100%" dur="3.6s" repeatCount="indefinite"/>
     </linearGradient>
 
-    <!-- Фильтр мягкого свечения -->
     <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur1"/>
       <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur2"/>
@@ -24,9 +22,8 @@
       </feMerge>
     </filter>
 
-    <!-- Анимация пульсации через CSS -->
     <style>
-      .bg { fill:#0f172a }
+      :root { color-scheme: dark }
       .text-main { font: 800 48px/1 Inter,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,sans-serif }
       .text-reg  { font: 400 48px/1 Inter,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,sans-serif }
       .glow { filter:url(#softGlow) }
@@ -35,21 +32,16 @@
         0%, 100% { opacity: 1; transform: translateZ(0) }
         50%      { opacity: .8 }
       }
-      /* Уважение prefers-reduced-motion */
       @media (prefers-reduced-motion: reduce) {
         .pulse { animation: none }
       }
     </style>
   </defs>
 
-  <!-- фон -->
-  <rect class="bg" width="220" height="70" rx="8"/>
 
-  <!-- rsl (жирный, с градиентом и свечением) -->
   <g class="glow pulse">
     <text x="20" y="50" class="text-main" fill="url(#rslGrad)">rsl</text>
   </g>
 
-  <!-- code (обычный, светлый) -->
   <text x="96" y="50" class="text-reg" fill="#f8fafc">code</text>
 </svg>

@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@plugin '@tailwindcss/typography';
 
 :root {
   --background: #0f172a;
@@ -21,4 +22,20 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
+}
+
+code[data-theme*=' '],
+code[data-theme*=' '] span,
+[data-rehype-pretty-code-figure] > pre:has(code[data-theme*=' ']) {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  code[data-theme*=' '],
+  code[data-theme*=' '] span,
+  [data-rehype-pretty-code-figure] > pre:has(code[data-theme*=' ']) {
+    color: var(--shiki-dark);
+    background-color: var(--shiki-dark-bg);
+  }
 }
