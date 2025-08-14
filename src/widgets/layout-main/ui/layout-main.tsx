@@ -1,10 +1,7 @@
 import { Footer } from '@/widgets/footer';
 import { Header } from '@/widgets/header';
 
-import { getDictionary } from '@/shared/config/i18n/get-dictionary';
-
-// Create a type for our dictionary
-type Dictionary = Awaited<ReturnType<typeof getDictionary>>;
+import type { Dictionary } from '@/shared/config/i18n/get-dictionary';
 
 interface Props {
   children: React.ReactNode;

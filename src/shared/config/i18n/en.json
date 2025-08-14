@@ -1,11 +1,24 @@
 {
-  "navigation": {
-    "home": "Home",
-    "blog": "Blog",
-    "projects": "Projects"
-  },
+  "navigation": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "Blog",
+      "href": "/blog"
+    },
+    {
+      "label": "Projects",
+      "href": "/projects"
+    }
+  ],
   "homepage": {
     "title": "Hi, I'm Ruslan!",
     "subtitle": "I am a frontend developer. This is my personal website where I share my thoughts, projects, and experience."
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Here you can find my articles and news."
   }
 }
