@@ -5,6 +5,6 @@ const config = {
   semi: true,
   printWidth: 100,
   bracketSameLine: true,
-  trailingComma: "es5",
+  trailingComma: 'es5',
 };
 module.exports = config;
