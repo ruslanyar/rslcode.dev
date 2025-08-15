@@ -1,1 +1,1 @@
-export { getSortedPostsData, getPostData, getAllPostSlugs } from './posts';
+export { getSortedPostsData, getAllPostSlugs } from './posts';

@@ -1,7 +1,27 @@
+import createMDX from '@next/mdx';
+import remarkGfm from 'remark-gfm';
+import rehypeExpressiveCode from 'rehype-expressive-code';
+import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers';
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
 };
 
-export default nextConfig;
+const withMDX = createMDX({
+  extension: /\.(md|mdx)$/,
+  options: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [
+      [
+        rehypeExpressiveCode,
+        {
+          themes: ['solarized-dark', 'solarized-light'],
+          plugins: [pluginLineNumbers()],
+        },
+      ],
+    ],
+  },
+});
+
+export default withMDX(nextConfig);

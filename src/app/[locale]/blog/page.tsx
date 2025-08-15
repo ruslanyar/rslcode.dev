@@ -1,11 +1,13 @@
 import Link from 'next/link';
+
 import { getSortedPostsData } from '@/shared/lib';
 import { getDictionary } from '@/shared/config/i18n/get-dictionary';
-import { Locale } from '@/shared/config/i18n/i18n-config';
+
+import type { Locale } from '@/shared/config/i18n/i18n-config';
 
 export default async function BlogPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
-  const allPosts = getSortedPostsData(locale);
+  const allPosts = await getSortedPostsData(locale);
   const dictionary = await getDictionary(locale);
 
   return (

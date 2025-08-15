@@ -1,13 +1,17 @@
-import { getAllPostSlugs, getPostData } from '@/shared/lib';
-import { Locale } from '@/shared/config/i18n/i18n-config';
+import { getAllPostSlugs } from '@/shared/lib';
 
-// This function is needed to pre-render all the blog posts at build time.
+import type { Locale } from '@/shared/config/i18n/i18n-config';
+
 export async function generateStaticParams() {
   const paths = getAllPostSlugs();
-  // We need to combine slugs with locales
   const locales = ['en', 'ru'];
   const params = paths.flatMap(({ slug }) => locales.map((locale) => ({ slug, locale })));
   return params;
+}
+
+async function getPost(slug: string, locale: Locale) {
+  const { frontmatter, default: Content } = await import(`@content/blog/${slug}.${locale}.mdx`);
+  return { frontmatter, Content };
 }
 
 export default async function PostPage({
@@ -16,21 +20,21 @@ export default async function PostPage({
   params: Promise<{ slug: string; locale: Locale }>;
 }) {
   const { slug, locale } = await params;
-  const postData = await getPostData(slug, locale);
+  const { frontmatter, Content } = await getPost(slug, locale);
 
   return (
     <article className='mx-auto prose max-w-none prose-invert'>
-      <h1 className='text-primary'>{postData.title}</h1>
+      <h1 className='text-primary'>{frontmatter.title}</h1>
       <div className='text-sm text-zinc-400'>
-        <time dateTime={postData.date}>
-          {new Date(postData.date).toLocaleDateString(locale, {
+        <time dateTime={frontmatter.date}>
+          {new Date(frontmatter.date).toLocaleDateString(locale, {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
           })}
         </time>
       </div>
-      <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      <Content />
     </article>
   );
 }
