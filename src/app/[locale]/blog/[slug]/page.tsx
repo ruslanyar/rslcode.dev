@@ -1,12 +1,25 @@
+import type { Metadata } from 'next';
+
 import { getAllPostSlugs, getPost } from '@/shared/lib';
 
 import type { Locale } from '@/shared/config/i18n/i18n-config';
 
-export async function generateStaticParams() {
-  const paths = getAllPostSlugs();
-  const locales = ['en', 'ru'];
-  const params = paths.flatMap(({ slug }) => locales.map((locale) => ({ slug, locale })));
-  return params;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string; locale: Locale }>;
+}): Promise<Metadata> {
+  const { slug, locale } = await params;
+  const { frontmatter, metadata } = await getPost(slug, locale);
+
+  if (!metadata) {
+    return {
+      title: frontmatter.title,
+      description: frontmatter.summary,
+    };
+  }
+
+  return metadata;
 }
 
 export default async function PostPage({
@@ -32,4 +45,11 @@ export default async function PostPage({
       <Content />
     </article>
   );
+}
+
+export async function generateStaticParams() {
+  const paths = getAllPostSlugs();
+  const locales = ['en', 'ru'];
+  const params = paths.flatMap(({ slug }) => locales.map((locale) => ({ slug, locale })));
+  return params;
 }

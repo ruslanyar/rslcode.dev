@@ -1,7 +1,21 @@
+import type { Metadata } from 'next';
+
 import { ProjectCard } from '@/entities/project';
+
 import { getDictionary } from '@/shared/config/i18n/get-dictionary';
 import { projects } from '@content/projects';
+
 import type { Locale } from '@/shared/config/i18n/i18n-config';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const dictionary = await getDictionary(locale);
+  return dictionary['projects-page'].metadata;
+}
 
 export default async function ProjectsPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;

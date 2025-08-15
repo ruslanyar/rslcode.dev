@@ -1,5 +1,17 @@
+import type { Metadata } from 'next';
+
 import { getDictionary } from '@/shared/config/i18n/get-dictionary';
 import { Locale } from '@/shared/config/i18n/i18n-config';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const dictionary = await getDictionary(locale);
+  return dictionary['home-page'].metadata;
+}
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;

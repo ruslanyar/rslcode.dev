@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 
 import { getSortedPostsData } from '@/shared/lib';
 import { getDictionary } from '@/shared/config/i18n/get-dictionary';
@@ -6,6 +7,16 @@ import { getDictionary } from '@/shared/config/i18n/get-dictionary';
 import type { Locale } from '@/shared/config/i18n/i18n-config';
 
 const POSTS_PER_PAGE = 3;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const dictionary = await getDictionary(locale);
+  return dictionary['blog-page'].metadata;
+}
 
 export default async function BlogPage({
   params,

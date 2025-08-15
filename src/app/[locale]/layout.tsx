@@ -1,19 +1,28 @@
 import type { Metadata } from 'next';
 
+import { LayoutMain } from '@/widgets/layout-main';
+
 import { getDictionary } from '@/shared/config/i18n/get-dictionary';
 import { i18n, Locale } from '@/shared/config/i18n/i18n-config';
-import { LayoutMain } from '@/widgets/layout-main';
 
 import '@/app/globals.css';
 
-export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ locale }));
-}
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const dictionary = await getDictionary(locale);
 
-export const metadata: Metadata = {
-  title: 'rslcode.dev',
-  description: 'RSL Code Dev',
-};
+  return {
+    title: {
+      template: '%s | rslcode.dev',
+      default: dictionary.site.title,
+    },
+    description: dictionary.site.description,
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -34,4 +43,8 @@ export default async function RootLayout({
       </body>
     </html>
   );
+}
+
+export async function generateStaticParams() {
+  return i18n.locales.map((locale) => ({ locale }));
 }
