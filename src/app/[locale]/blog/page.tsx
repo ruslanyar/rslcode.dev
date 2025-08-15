@@ -11,14 +11,15 @@ export default async function BlogPage({
   params,
   searchParams,
 }: {
-  params: { locale: Locale };
-  searchParams?: { page?: string };
+  params: Promise<{ locale: Locale }>;
+  searchParams: Promise<{ page?: string }>;
 }) {
-  const { locale } = params;
+  const { locale } = await params;
+  const pageParams = await searchParams;
   const allPosts = await getSortedPostsData(locale);
   const dictionary = await getDictionary(locale);
 
-  const currentPage = Number(searchParams?.page) || 1;
+  const currentPage = Number(pageParams?.page) || 1;
 
   const paginatedPosts = allPosts.slice(
     (currentPage - 1) * POSTS_PER_PAGE,
@@ -29,8 +30,8 @@ export default async function BlogPage({
 
   return (
     <section>
-      <h1 className='mb-8 text-4xl font-bold text-primary'>{dictionary.blog.title}</h1>
-      <p className='mb-8 text-lg'>{dictionary.blog.subtitle}</p>
+      <h1 className='mb-8 text-4xl font-bold text-primary'>{dictionary['blog-page'].title}</h1>
+      <p className='mb-8 text-lg text-zinc-400'>{dictionary['blog-page'].subtitle}</p>
       <ul className='space-y-8'>
         {paginatedPosts.map(({ slug, date, title, summary }) => (
           <li key={slug}>
@@ -60,8 +61,7 @@ export default async function BlogPage({
             className={`
               rounded-md border border-zinc-700 px-4 py-2
               hover:bg-zinc-800
-            `}
-          >
+            `}>
             {dictionary.pagination.previous}
           </Link>
         ) : (
@@ -73,8 +73,7 @@ export default async function BlogPage({
             className={`
               rounded-md border border-zinc-700 px-4 py-2
               hover:bg-zinc-800
-            `}
-          >
+            `}>
             {dictionary.pagination.next}
           </Link>
         ) : (

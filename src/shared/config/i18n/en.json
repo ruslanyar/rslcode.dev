@@ -13,13 +13,17 @@
       "href": "/projects"
     }
   ],
-  "homepage": {
+  "home-page": {
     "title": "Hi, I'm Ruslan!",
     "subtitle": "I am a frontend developer. This is my personal website where I share my thoughts, projects, and experience."
   },
-  "blog": {
+  "blog-page": {
     "title": "Blog",
     "subtitle": "Here you can find my articles and news."
+  },
+  "projects-page": {
+    "title": "Projects",
+    "subtitle": "A collection of my key works and experiments."
   },
   "pagination": {
     "previous": "Previous Page",
