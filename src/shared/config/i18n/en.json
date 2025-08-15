@@ -20,5 +20,9 @@
   "blog": {
     "title": "Blog",
     "subtitle": "Here you can find my articles and news."
+  },
+  "pagination": {
+    "previous": "Previous Page",
+    "next": "Next Page"
   }
 }

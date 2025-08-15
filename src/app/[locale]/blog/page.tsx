@@ -5,21 +5,38 @@ import { getDictionary } from '@/shared/config/i18n/get-dictionary';
 
 import type { Locale } from '@/shared/config/i18n/i18n-config';
 
-export default async function BlogPage({ params }: { params: Promise<{ locale: Locale }> }) {
-  const { locale } = await params;
+const POSTS_PER_PAGE = 3;
+
+export default async function BlogPage({
+  params,
+  searchParams,
+}: {
+  params: { locale: Locale };
+  searchParams?: { page?: string };
+}) {
+  const { locale } = params;
   const allPosts = await getSortedPostsData(locale);
   const dictionary = await getDictionary(locale);
+
+  const currentPage = Number(searchParams?.page) || 1;
+
+  const paginatedPosts = allPosts.slice(
+    (currentPage - 1) * POSTS_PER_PAGE,
+    currentPage * POSTS_PER_PAGE
+  );
+
+  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
 
   return (
     <section>
       <h1 className='mb-8 text-4xl font-bold text-primary'>{dictionary.blog.title}</h1>
       <p className='mb-8 text-lg'>{dictionary.blog.subtitle}</p>
       <ul className='space-y-8'>
-        {allPosts.map(({ slug, date, title, summary }) => (
+        {paginatedPosts.map(({ slug, date, title, summary }) => (
           <li key={slug}>
             <article>
               <h2 className='text-2xl font-bold'>
-                <Link href={`/blog/${slug}`} className='hover:text-primary'>
+                <Link href={`/${locale}/blog/${slug}`} className='hover:text-primary'>
                   {title}
                 </Link>
               </h2>
@@ -35,6 +52,35 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: L
           </li>
         ))}
       </ul>
+
+      <div className='mt-12 flex justify-between'>
+        {currentPage > 1 ? (
+          <Link
+            href={`/${locale}/blog?page=${currentPage - 1}`}
+            className={`
+              rounded-md border border-zinc-700 px-4 py-2
+              hover:bg-zinc-800
+            `}
+          >
+            {dictionary.pagination.previous}
+          </Link>
+        ) : (
+          <div />
+        )}
+        {currentPage < totalPages ? (
+          <Link
+            href={`/${locale}/blog?page=${currentPage + 1}`}
+            className={`
+              rounded-md border border-zinc-700 px-4 py-2
+              hover:bg-zinc-800
+            `}
+          >
+            {dictionary.pagination.next}
+          </Link>
+        ) : (
+          <div />
+        )}
+      </div>
     </section>
   );
 }

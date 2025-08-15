@@ -28,7 +28,9 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={`antialiased`}>
-        <LayoutMain dictionary={dictionary}>{children}</LayoutMain>
+        <LayoutMain dictionary={dictionary} locale={locale}>
+          {children}
+        </LayoutMain>
       </body>
     </html>
   );
