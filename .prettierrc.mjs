@@ -1,4 +1,7 @@
-/** @type {import("prettier").Config} */
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
 const config = {
   jsxSingleQuote: true,
   singleQuote: true,
@@ -7,4 +10,4 @@ const config = {
   bracketSameLine: true,
   trailingComma: 'es5',
 };
-module.exports = config;
+export default config;
