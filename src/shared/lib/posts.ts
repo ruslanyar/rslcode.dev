@@ -38,3 +38,12 @@ export function getAllPostSlugs() {
   const uniqueSlugs = Array.from(new Set(slugs));
   return uniqueSlugs.map((slug) => ({ slug }));
 }
+
+export async function getPost(slug: string, locale: Locale) {
+  const {
+    frontmatter,
+    metadata,
+    default: Content,
+  } = await import(`@content/blog/${slug}.${locale}.mdx`);
+  return { frontmatter, metadata, Content };
+}

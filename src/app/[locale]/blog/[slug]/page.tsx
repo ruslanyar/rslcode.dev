@@ -1,4 +1,4 @@
-import { getAllPostSlugs } from '@/shared/lib';
+import { getAllPostSlugs, getPost } from '@/shared/lib';
 
 import type { Locale } from '@/shared/config/i18n/i18n-config';
 
@@ -7,11 +7,6 @@ export async function generateStaticParams() {
   const locales = ['en', 'ru'];
   const params = paths.flatMap(({ slug }) => locales.map((locale) => ({ slug, locale })));
   return params;
-}
-
-async function getPost(slug: string, locale: Locale) {
-  const { frontmatter, default: Content } = await import(`@content/blog/${slug}.${locale}.mdx`);
-  return { frontmatter, Content };
 }
 
 export default async function PostPage({
