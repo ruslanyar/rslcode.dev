@@ -30,6 +30,15 @@ export default async function BlogPage({
   const allPosts = await getSortedPostsData(locale);
   const dictionary = await getDictionary(locale);
 
+  if (allPosts.length === 0) {
+    return (
+      <section>
+        <h1 className='mb-8 text-4xl font-bold text-primary'>{dictionary['blog-page'].title}</h1>
+        <p className='text-lg text-zinc-400'>{dictionary['blog-page'].noPosts}</p>
+      </section>
+    );
+  }
+
   const currentPage = Number(pageParams?.page) || 1;
 
   const paginatedPosts = allPosts.slice(

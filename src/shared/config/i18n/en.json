@@ -24,6 +24,7 @@
   "blog-page": {
     "title": "Blog",
     "subtitle": "Here you can find my articles and news.",
+    "noPosts": "There are no posts here yet.",
     "metadata": {
       "title": "Blog",
       "description": "Articles about frontend development, TypeScript, React, Next.js, and other technologies."
