@@ -6,63 +6,55 @@ import type { Locale } from '@/shared/config/i18n/i18n-config';
 
 const postsDirectory = path.join(process.cwd(), 'content/blog');
 
-function getBlogFileNames() {
+export function getAllPostSlugs() {
   try {
-    return fs.readdirSync(postsDirectory);
+    const slugs = fs
+      .readdirSync(postsDirectory, { withFileTypes: true })
+      .filter((dirent) => dirent.isDirectory())
+      .map((dirent) => dirent.name);
+    return slugs.map((slug) => ({ slug }));
   } catch {
     return [];
   }
 }
 
 export async function getSortedPostsData(locale: Locale) {
-  const fileNames = getBlogFileNames();
+  const slugs = getAllPostSlugs().map((p) => p.slug);
+  if (slugs.length === 0) return [];
 
-  if (fileNames.length === 0) return [];
-
-  const localeFileNames = fileNames.filter((fileName) => fileName.endsWith(`.${locale}.mdx`));
-
-  if (localeFileNames.length === 0) return [];
-
-  const allPostsData = await Promise.all(
-    localeFileNames.map(async (fileName) => {
-      const slug = fileName.replace(`.${locale}.mdx`, '');
-      const { frontmatter } = await import(`@content/blog/${fileName}`);
+  const postsPromises = slugs.map(async (slug) => {
+    try {
+      const { frontmatter } = await import(`@content/blog/${slug}/${slug}.${locale}.mdx`);
       return {
         slug,
         ...(frontmatter as { title: string; date: string; summary: string }),
       };
-    })
-  );
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      return null;
+    }
+  });
 
-  return allPostsData.sort((a, b) => {
+  const allPosts = await Promise.all(postsPromises);
+
+  const filteredPosts = allPosts.filter((post): post is NonNullable<typeof post> => post !== null);
+
+  return filteredPosts.sort((a, b) => {
     if (a.date < b.date) return 1;
     else return -1;
   });
 }
 
-export function getAllPostSlugs() {
-  const fileNames = getBlogFileNames();
-
-  if (fileNames.length === 0) return [];
-
-  const mdxFileNames = fileNames.filter((fileName) => /\.(ru|en)\.mdx$/.test(fileName));
-
-  if (mdxFileNames.length === 0) return [];
-
-  const slugs = mdxFileNames.map((fileName) => fileName.replace(/\.(ru|en)\.mdx$/, ''));
-  const uniqueSlugs = Array.from(new Set(slugs));
-  return uniqueSlugs.map((slug) => ({ slug }));
-}
-
 export async function getPost(slug: string, locale: Locale) {
-  const filePath = path.join(postsDirectory, `${slug}.${locale}.mdx`);
-
-  if (!fs.existsSync(filePath)) notFound();
-
-  const {
-    frontmatter,
-    metadata,
-    default: Content,
-  } = await import(`@content/blog/${slug}.${locale}.mdx`);
-  return { frontmatter, metadata, Content };
+  try {
+    const {
+      frontmatter,
+      metadata,
+      default: Content,
+    } = await import(`@content/blog/${slug}/${slug}.${locale}.mdx`);
+    return { frontmatter, metadata, Content };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    notFound();
+  }
 }
