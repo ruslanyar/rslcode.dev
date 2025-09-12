@@ -1,4 +1,3 @@
-import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { defineConfig } from 'eslint/config';
 import { includeIgnoreFile } from '@eslint/compat';
@@ -13,6 +12,10 @@ const compat = new FlatCompat({
 });
 
 export default defineConfig([
+  {
+    ignores: ['node_modules/**', '.next/**', 'out/**', 'build/**', 'next-env.d.ts'],
+  },
+
   includeIgnoreFile(gitignorePath, 'Imported .gitignore patterns'),
 
   ...compat.config({
@@ -36,7 +39,6 @@ export default defineConfig([
       'import/named': 'error',
     },
   },
-
   {
     files: ['**/*.{jsx,tsx}'],
 
