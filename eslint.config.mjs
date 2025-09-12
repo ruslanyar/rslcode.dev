@@ -25,7 +25,7 @@ export default defineConfig([
       parser: tsEslintParser,
       parserOptions: {
         project: ['./tsconfig.json'],
-        tsconfigRootDir: dirname('./'),
+        tsconfigRootDir: import.meta.dirname,
       },
     },
 
