@@ -12,9 +12,14 @@ interface Props {
 
 export const LayoutMain = ({ children, dictionary, locale }: Props) => {
   return (
-    <div className='flex min-h-screen flex-col bg-background text-foreground'>
+    <div
+      className={`
+        mx-auto flex min-h-screen max-w-7xl flex-col divide-y divide-slate-700 px-4 text-foreground
+        sm:px-6
+        xl:px-8
+      `}>
       <Header dictionary={dictionary.navigation} locale={locale} />
-      <main className='container mx-auto flex-grow p-4'>{children}</main>
+      <main className='flex-grow divide-y divide-slate-700'>{children}</main>
       <Footer />
     </div>
   );

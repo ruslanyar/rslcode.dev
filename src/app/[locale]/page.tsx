@@ -17,7 +17,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
   const { locale } = await params;
   const dictionary = await getDictionary(locale);
   return (
-    <section>
+    <section className='py-6'>
       <h1 className='text-4xl font-bold text-primary'>{dictionary['home-page'].title}</h1>
       <p className='mt-4 text-lg'>{dictionary['home-page'].subtitle}</p>
     </section>

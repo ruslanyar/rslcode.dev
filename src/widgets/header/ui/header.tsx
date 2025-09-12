@@ -14,19 +14,17 @@ interface Props {
 
 export const Header = ({ dictionary, locale }: Props) => {
   return (
-    <header className='border-b border-b-zinc-800'>
-      <div className='container mx-auto flex items-center justify-between p-4'>
-        <Logo />
-        <nav className='flex items-center gap-4'>
-          {dictionary.map(({ label, href }) => (
-            <Link key={label} href={`/${locale}${href}`} className='hover:text-primary'>
-              {label}
-            </Link>
-          ))}
+    <header className='flex items-center justify-between py-6'>
+      <Logo />
+      <nav className='flex items-center gap-4'>
+        {dictionary.map(({ label, href }) => (
+          <Link key={label} href={`/${locale}${href}`} className='hover:text-primary'>
+            {label}
+          </Link>
+        ))}
 
-          <LanguageSwitcher />
-        </nav>
-      </div>
+        <LanguageSwitcher />
+      </nav>
     </header>
   );
 };
