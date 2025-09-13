@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { type Project } from '@content/projects';
+import { type Project } from '@/shared/config/projects';
 import { type Locale } from '@/shared/config/i18n/i18n-config';
 
 interface Props {

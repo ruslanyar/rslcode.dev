@@ -3,7 +3,7 @@ import { type Metadata } from 'next';
 import { ProjectCard } from '@/entities/project';
 
 import { getDictionary } from '@/shared/config/i18n/get-dictionary';
-import { projects } from '@content/projects';
+import { projects } from '@/shared/config/projects';
 
 import type { Locale } from '@/shared/config/i18n/i18n-config';
 
