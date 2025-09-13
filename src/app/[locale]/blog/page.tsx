@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { type Metadata } from 'next';
 
 import { PostCard } from '@/entities/post';
+import { PageTitle } from '@/shared/ui/page-title';
+import { PageSubtitle } from '@/shared/ui/page-subtitle';
 
 import { getSortedPostsData } from '@/shared/lib';
 import { getDictionary } from '@/shared/config/i18n/get-dictionary';
@@ -34,9 +36,13 @@ export default async function BlogPage({
 
   if (allPosts.length === 0) {
     return (
-      <section>
-        <h1 className='mb-8 text-4xl font-bold text-primary'>{dictionary['blog-page'].title}</h1>
-        <p className='text-lg text-zinc-400'>{dictionary['blog-page'].noPosts}</p>
+      <section
+        className={`
+          space-y-2 pt-6 pb-8
+          md:space-y-8
+        `}>
+        <PageTitle>{dictionary['blog-page'].title}</PageTitle>
+        <PageSubtitle>{dictionary['blog-page'].noPosts}</PageSubtitle>
       </section>
     );
   }
@@ -51,10 +57,14 @@ export default async function BlogPage({
   const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
 
   return (
-    <section>
-      <h1 className='mb-8 text-4xl font-bold text-primary'>{dictionary['blog-page'].title}</h1>
-      <p className='mb-8 text-lg text-zinc-400'>{dictionary['blog-page'].subtitle}</p>
-      <ul className='divide-y divide-slate-700'>
+    <section
+      className={`
+        space-y-2 pt-6 pb-8
+        md:space-y-8
+      `}>
+      <PageTitle>{dictionary['blog-page'].title}</PageTitle>
+      <PageSubtitle>{dictionary['blog-page'].subtitle}</PageSubtitle>
+      <ul className='divide-y divide-divider'>
         {paginatedPosts.map((post) => (
           <li key={post.slug} className='py-5'>
             <PostCard post={post} locale={locale} />

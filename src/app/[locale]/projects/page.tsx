@@ -6,6 +6,8 @@ import { getDictionary } from '@/shared/config/i18n/get-dictionary';
 import { projects } from '@/shared/config/projects';
 
 import type { Locale } from '@/shared/config/i18n/i18n-config';
+import { PageTitle } from '@/shared/ui/page-title';
+import { PageSubtitle } from '@/shared/ui/page-subtitle';
 
 export async function generateMetadata({
   params,
@@ -22,9 +24,13 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
   const dictionary = await getDictionary(locale);
 
   return (
-    <section>
-      <h1 className='mb-4 text-4xl font-bold text-primary'>{dictionary['projects-page'].title}</h1>
-      <p className='mb-8 text-lg text-zinc-400'>{dictionary['projects-page'].subtitle}</p>
+    <section
+      className={`
+        space-y-2 pt-6 pb-8
+        md:space-y-8
+      `}>
+      <PageTitle>{dictionary['projects-page'].title}</PageTitle>
+      <PageSubtitle>{dictionary['projects-page'].subtitle}</PageSubtitle>
       <div
         className={`
           grid grid-cols-1 gap-8

@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { getAllPostSlugs, getPost } from '@/shared/lib';
 
 import { type Locale } from '@/shared/config/i18n/i18n-config';
+import { PageTitle } from '@/shared/ui/page-title';
 
 export async function generateMetadata({
   params,
@@ -32,7 +33,7 @@ export default async function PostPage({
 
   return (
     <article className='mx-auto prose max-w-none prose-invert'>
-      <h1 className='text-primary'>{frontmatter.title}</h1>
+      <PageTitle>{frontmatter.title}</PageTitle>
       <div className='mb-4 text-sm text-gray-400'>
         <time dateTime={frontmatter.date}>
           {new Date(frontmatter.date).toLocaleDateString(locale, {

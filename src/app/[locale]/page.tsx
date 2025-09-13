@@ -1,6 +1,8 @@
 import { type Metadata } from 'next';
 
 import { PostCard } from '@/entities/post';
+import { PageTitle } from '@/shared/ui/page-title';
+import { PageSubtitle } from '@/shared/ui/page-subtitle';
 
 import { getDictionary } from '@/shared/config/i18n/get-dictionary';
 import { getSortedPostsData } from '@/shared/lib';
@@ -27,17 +29,10 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       <section
         className={`
           space-y-2 pt-6 pb-8
-          md:space-y-5
+          md:space-y-8
         `}>
-        <h1
-          className={`
-            text-3xl leading-9 font-extrabold tracking-tight text-primary
-            sm:text-4xl sm:leading-10
-            md:text-6xl md:leading-14
-          `}>
-          {dictionary['home-page'].title}
-        </h1>
-        <p className='text-lg'>{dictionary['home-page'].subtitle}</p>
+        <PageTitle>{dictionary['home-page'].title}</PageTitle>
+        <PageSubtitle>{dictionary['home-page'].subtitle}</PageSubtitle>
       </section>
 
       <section className='py-12'>
