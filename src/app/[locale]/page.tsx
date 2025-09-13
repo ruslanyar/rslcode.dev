@@ -23,7 +23,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
   const recentPosts = await getSortedPostsData(locale, 5);
 
   return (
-    <div className='divide-y divide-slate-700'>
+    <div className='divide-y divide-divider'>
       <section
         className={`
           space-y-2 pt-6 pb-8
@@ -42,7 +42,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
 
       <section className='py-12'>
         <h2 className='mb-8 text-3xl font-bold'>{dictionary['home-page'].recentPosts}</h2>
-        <ul className='space-y-8 divide-y divide-slate-700'>
+        <ul className='space-y-8 divide-y divide-divider'>
           {recentPosts.map((post) => (
             <li key={post.slug} className='py-12'>
               <PostCard post={post} locale={locale} />

@@ -20,16 +20,16 @@ export const Tags = ({ tags, locale }: TagsProps) => {
           <Link
             href={`/${locale}/tags/${tag}`}
             className={`
-              text-sm font-medium text-sky-300 uppercase transition-colors duration-300
-              hover:text-primary
+              text-sm font-medium text-secondary uppercase transition-colors duration-300
+              hover:text-secondary-hover
             `}>
             {TAGS[tag][locale]}
           </Link>
           <div
             className={`
-              absolute bottom-0 h-0.25 w-full -translate-x-11/10 bg-sky-300
+              absolute bottom-0 h-0.25 w-full -translate-x-11/10 bg-secondary
               transition-[translate,background-color] duration-300
-              group-hover:translate-none group-hover:bg-primary
+              group-hover:translate-none group-hover:bg-secondary-hover
             `}
           />
         </li>

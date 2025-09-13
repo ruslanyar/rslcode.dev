@@ -12,7 +12,7 @@ export const ProjectCard = ({ project, locale }: Props) => {
   return (
     <div className='flex h-full flex-col rounded-lg border border-zinc-800 bg-zinc-900 p-6'>
       <h3 className='mb-2 text-xl font-bold text-primary'>{project.name}</h3>
-      <p className='mb-4 flex-grow text-zinc-400'>{project.description[locale]}</p>
+      <p className='mb-4 flex-grow text-foreground-muted'>{project.description[locale]}</p>
       <div className='mb-4 flex flex-wrap gap-2'>
         {project.stack.map((tech) => (
           <span key={tech} className='rounded-full bg-zinc-800 px-3 py-1 text-sm text-secondary'>

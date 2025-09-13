@@ -19,7 +19,7 @@ export const LayoutMain = ({ children, dictionary, locale }: Props) => {
         xl:px-8
       `}>
       <Header dictionary={dictionary.navigation} locale={locale} />
-      <main className='flex-grow divide-y divide-slate-700'>{children}</main>
+      <main className='flex-grow divide-y divide-divider'>{children}</main>
       <Footer />
     </div>
   );

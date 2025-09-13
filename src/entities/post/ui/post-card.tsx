@@ -29,7 +29,7 @@ export const PostCard = ({ post, locale }: Props) => {
         `}>
         <time
           dateTime={post.date}
-          className='text-base leading-6 font-medium text-slate-500 transition-colors duration-300'>
+          className='text-base leading-6 font-medium text-gray-400 transition-colors duration-300'>
           {new Date(post.date).toLocaleDateString(locale, {
             year: 'numeric',
             month: 'long',
@@ -58,9 +58,9 @@ export const PostCard = ({ post, locale }: Props) => {
             `}>
             <h2
               className={`
-                text-2xl leading-8 font-bold tracking-tight text-sky-100 transition-colors
+                text-2xl leading-8 font-bold tracking-tight text-primary transition-colors
                 duration-300
-                group-hover:text-primary
+                group-hover:text-primary-hover
               `}>
               {post.title}
             </h2>
