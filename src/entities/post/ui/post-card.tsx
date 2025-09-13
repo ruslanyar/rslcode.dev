@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { TAGS } from '@/shared/config/tags';
-import { type Locale } from '@/shared/config/i18n/i18n-config';
 import type { PostFrontmatter } from '@/entities/post/model/types';
+import { type Locale } from '@/shared/config/i18n/i18n-config';
+
+import { Tags } from './tags';
 
 interface Post extends PostFrontmatter {
   slug: string;
@@ -35,19 +36,7 @@ export const PostCard = ({ post, locale }: Props) => {
             day: 'numeric',
           })}
         </time>
-        <div className='flex flex-wrap gap-x-3 gap-y-0.5'>
-          {post.tags?.map((tag) => (
-            <Link
-              key={tag}
-              href={`/${locale}/tags/${tag}`}
-              className={`
-                text-sm font-medium text-primary uppercase
-                hover:underline
-              `}>
-              {TAGS[tag][locale]}
-            </Link>
-          ))}
-        </div>
+        <Tags tags={post.tags} locale={locale} />
       </div>
       <Link
         data-name='post-link'
@@ -69,7 +58,7 @@ export const PostCard = ({ post, locale }: Props) => {
             `}>
             <h2
               className={`
-                text-2xl leading-8 font-bold tracking-tight text-gray-100 transition-colors
+                text-2xl leading-8 font-bold tracking-tight text-sky-100 transition-colors
                 duration-300
                 group-hover:text-primary
               `}>
