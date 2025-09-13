@@ -16,6 +16,7 @@
   "home-page": {
     "title": "Hi, I'm Ruslan!",
     "subtitle": "I am a frontend developer. This is my personal website where I share my thoughts, projects, and experience.",
+    "recentPosts": "Recent Posts",
     "metadata": {
       "title": "Home | rslcode.dev",
       "description": "Personal website, blog, and portfolio of Ruslan Yarmukhametov, a frontend developer."

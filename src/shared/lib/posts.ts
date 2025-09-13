@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { notFound } from 'next/navigation';
 
+import type { PostFrontmatter } from '@/entities/post/model/types';
 import type { Locale } from '@/shared/config/i18n/i18n-config';
 
 const postsDirectory = path.join(process.cwd(), 'content/blog');
@@ -18,7 +19,7 @@ export function getAllPostSlugs() {
   }
 }
 
-export async function getSortedPostsData(locale: Locale) {
+export async function getSortedPostsData(locale: Locale, limit?: number) {
   const slugs = getAllPostSlugs().map((p) => p.slug);
   if (slugs.length === 0) return [];
 
@@ -27,10 +28,9 @@ export async function getSortedPostsData(locale: Locale) {
       const { frontmatter } = await import(`@content/blog/${slug}/${slug}.${locale}.mdx`);
       return {
         slug,
-        ...(frontmatter as { title: string; date: string; summary: string }),
+        ...(frontmatter as PostFrontmatter),
       };
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
+    } catch {
       return null;
     }
   });
@@ -39,10 +39,16 @@ export async function getSortedPostsData(locale: Locale) {
 
   const filteredPosts = allPosts.filter((post): post is NonNullable<typeof post> => post !== null);
 
-  return filteredPosts.sort((a, b) => {
+  const sortedPosts = filteredPosts.sort((a, b) => {
     if (a.date < b.date) return 1;
     else return -1;
   });
+
+  if (limit) {
+    return sortedPosts.slice(0, limit);
+  }
+
+  return sortedPosts;
 }
 
 export async function getPost(slug: string, locale: Locale) {
@@ -53,8 +59,7 @@ export async function getPost(slug: string, locale: Locale) {
       default: Content,
     } = await import(`@content/blog/${slug}/${slug}.${locale}.mdx`);
     return { frontmatter, metadata, Content };
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (error) {
+  } catch {
     notFound();
   }
 }

@@ -43,3 +43,6 @@ yarn-error.log*
 next-env.d.ts
 
 GEMINI.md
+
+# Documentation and plans
+.docs/

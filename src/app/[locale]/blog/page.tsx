@@ -1,10 +1,12 @@
 import Link from 'next/link';
-import type { Metadata } from 'next';
+import { type Metadata } from 'next';
+
+import { PostCard } from '@/entities/post';
 
 import { getSortedPostsData } from '@/shared/lib';
 import { getDictionary } from '@/shared/config/i18n/get-dictionary';
 
-import type { Locale } from '@/shared/config/i18n/i18n-config';
+import { type Locale } from '@/shared/config/i18n/i18n-config';
 
 const POSTS_PER_PAGE = 3;
 
@@ -52,24 +54,10 @@ export default async function BlogPage({
     <section>
       <h1 className='mb-8 text-4xl font-bold text-primary'>{dictionary['blog-page'].title}</h1>
       <p className='mb-8 text-lg text-zinc-400'>{dictionary['blog-page'].subtitle}</p>
-      <ul className='space-y-8'>
-        {paginatedPosts.map(({ slug, date, title, summary }) => (
-          <li key={slug}>
-            <article>
-              <h2 className='text-2xl font-bold'>
-                <Link href={`/${locale}/blog/${slug}`} className='hover:text-primary'>
-                  {title}
-                </Link>
-              </h2>
-              <time dateTime={date} className='text-sm text-zinc-400'>
-                {new Date(date).toLocaleDateString(locale, {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </time>
-              <p className='mt-2'>{summary}</p>
-            </article>
+      <ul className='divide-y divide-slate-700'>
+        {paginatedPosts.map((post) => (
+          <li key={post.slug} className='py-5'>
+            <PostCard post={post} locale={locale} />
           </li>
         ))}
       </ul>

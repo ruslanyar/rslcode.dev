@@ -14,7 +14,7 @@ export const LayoutMain = ({ children, dictionary, locale }: Props) => {
   return (
     <div
       className={`
-        mx-auto flex min-h-screen max-w-7xl flex-col divide-y divide-slate-700 px-4 text-foreground
+        mx-auto flex min-h-screen max-w-7xl flex-col px-4 text-foreground
         sm:px-6
         xl:px-8
       `}>

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import { getAllPostSlugs, getPost } from '@/shared/lib';
 
-import type { Locale } from '@/shared/config/i18n/i18n-config';
+import { type Locale } from '@/shared/config/i18n/i18n-config';
 
 export async function generateMetadata({
   params,
