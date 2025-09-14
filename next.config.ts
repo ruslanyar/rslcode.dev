@@ -18,6 +18,10 @@ const withMDX = createMDX({
         {
           themes: ['solarized-dark', 'solarized-light'],
           plugins: [pluginLineNumbers()],
+          styleOverrides: {
+            codeFontFamily: 'Fira Code',
+            uiFontFamily: 'Fira Code',
+          },
         },
       ],
     ],

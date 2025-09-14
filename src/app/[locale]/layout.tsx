@@ -4,7 +4,9 @@ import { LayoutMain } from '@/widgets/layout-main';
 
 import { getDictionary } from '@/shared/config/i18n/get-dictionary';
 import { i18n, Locale } from '@/shared/config/i18n/i18n-config';
+import { cn } from '@/shared/lib/css';
 
+import { firaCode } from '@/app/fonts';
 import '@/app/globals.css';
 
 export async function generateMetadata({
@@ -36,7 +38,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={`bg-background text-foreground antialiased`}>
+      <body className={cn('bg-background text-foreground antialiased', firaCode.className)}>
         <LayoutMain dictionary={dictionary} locale={locale}>
           {children}
         </LayoutMain>
