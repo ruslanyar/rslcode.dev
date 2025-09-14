@@ -32,7 +32,7 @@ export default async function PostPage({
   const { frontmatter, Content } = await getPost(slug, locale);
 
   return (
-    <article className='mx-auto prose max-w-none prose-invert'>
+    <article className='mx-auto prose max-w-3xl prose-invert'>
       <PageTitle>{frontmatter.title}</PageTitle>
       <div className='mb-4 text-sm text-gray-400'>
         <time dateTime={frontmatter.date}>

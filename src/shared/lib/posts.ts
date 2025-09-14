@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 
 import type { PostFrontmatter } from '@/entities/post/model/types';
 import type { Locale } from '@/shared/config/i18n/i18n-config';
+import { TagKey } from '@/shared/config/tags';
 
 const postsDirectory = path.join(process.cwd(), 'content/blog');
 
@@ -62,4 +63,10 @@ export async function getPost(slug: string, locale: Locale) {
   } catch {
     notFound();
   }
+}
+
+export async function getPostsByTag(tag: TagKey, locale: Locale) {
+  const allPosts = await getSortedPostsData(locale);
+  const filteredPosts = allPosts.filter((post) => post.tags?.includes(tag));
+  return filteredPosts;
 }
