@@ -1,4 +1,3 @@
-import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { defineConfig } from 'eslint/config';
 import { includeIgnoreFile } from '@eslint/compat';
@@ -6,18 +5,22 @@ import { FlatCompat } from '@eslint/eslintrc';
 import tsEslintParser from '@typescript-eslint/parser';
 import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url));
 
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
+  baseDirectory: import.meta.dirname,
 });
 
 export default defineConfig([
+  {
+    ignores: ['node_modules/**', '.next/**', 'out/**', 'build/**', 'next-env.d.ts'],
+  },
+
   includeIgnoreFile(gitignorePath, 'Imported .gitignore patterns'),
 
-  ...compat.extends('next/core-web-vitals', 'next/typescript', 'prettier'),
+  ...compat.config({
+    extends: ['next/core-web-vitals', 'next/typescript', 'prettier'],
+  }),
 
   {
     files: ['**/*.{ts,tsx}'],
@@ -25,7 +28,7 @@ export default defineConfig([
       parser: tsEslintParser,
       parserOptions: {
         project: ['./tsconfig.json'],
-        tsconfigRootDir: dirname('./'),
+        tsconfigRootDir: import.meta.dirname,
       },
     },
 
@@ -36,7 +39,6 @@ export default defineConfig([
       'import/named': 'error',
     },
   },
-
   {
     files: ['**/*.{jsx,tsx}'],
 

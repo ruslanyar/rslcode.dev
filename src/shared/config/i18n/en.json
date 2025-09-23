@@ -1,0 +1,58 @@
+{
+  "navigation": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "Blog",
+      "href": "/blog"
+    },
+    {
+      "label": "Projects",
+      "href": "/projects"
+    }
+  ],
+  "home-page": {
+    "title": "Hi, I'm Ruslan!",
+    "subtitle": "I am a frontend developer. This is my personal website where I share my thoughts, projects, and experience.",
+    "recentPosts": "Recent Posts",
+    "metadata": {
+      "title": "Home | rslcode.dev",
+      "description": "Personal website, blog, and portfolio of Ruslan Yarmukhametov, a frontend developer."
+    }
+  },
+  "blog-page": {
+    "title": "Blog",
+    "subtitle": "Here you can find my articles and news.",
+    "noPosts": "There are no posts here yet.",
+    "metadata": {
+      "title": "Blog",
+      "description": "Articles about frontend development, TypeScript, React, Next.js, and other technologies."
+    }
+  },
+  "projects-page": {
+    "title": "Projects",
+    "subtitle": "A collection of my key works and experiments.",
+    "metadata": {
+      "title": "Projects",
+      "description": "Portfolio and key projects of a frontend developer."
+    }
+  },
+  "pagination": {
+    "previous": "Previous Page",
+    "next": "Next Page"
+  },
+  "site": {
+    "title": "rslcode.dev | Frontend Developer",
+    "description": "Personal blog and portfolio of a frontend developer."
+  },
+  "tags-page": {
+    "title": "Tags",
+    "description": "Search for articles by tags."
+  },
+  "tag-page": {
+    "title": "Posts tagged with:",
+    "metaTitle": "Posts tagged with \"{tagName}\"."
+  }
+}

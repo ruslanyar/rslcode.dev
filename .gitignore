@@ -21,8 +21,10 @@
 /build
 
 # misc
+.vscode
 .DS_Store
 *.pem
+temp
 
 # debug
 npm-debug.log*
@@ -39,3 +41,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+GEMINI.md
+
+# Documentation and plans
+.docs/
